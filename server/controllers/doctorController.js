@@ -31,19 +31,37 @@ exports.getAlldoctors = async (req, res) => {
 };
 
 
-exports.getdoctorbyId=async(req,res)=>{
-   
-    try{
-         const {id}=req.params;
-        await db.query(
-            "update doctors SET search_count=search_count+1 WHERE id=?",[id]
-        );
-        const [rows]=await db.query("select * from doctors where id=?",[id]);
-        res.json(rows[0]);
-    }catch(error){
-       console.log(error);
+exports.getdoctorbyId = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await db.query(
+      "UPDATE doctors SET search_count = search_count + 1 WHERE id = ?",
+      [id]
+    );
+    const [rows] = await db.query(
+      "SELECT * FROM doctors WHERE id = ?",
+      [id]
+    );
+    const doctor = rows[0];
+    if (!doctor) {
+      return res.status(404).json({ message: "Doctor not found" });
     }
+    const [topDoctors] = await db.query(
+      "SELECT id FROM doctors ORDER BY search_count DESC LIMIT 10"
+    );
+
+    const isTop10 = topDoctors.some((doc) => doc.id === doctor.id);
+
+    res.json({
+      ...doctor,
+      isTop10
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Server error" });
+  }
 };
+
 
 exports.getTopdoctors=async (req,res)=>{
     try{
