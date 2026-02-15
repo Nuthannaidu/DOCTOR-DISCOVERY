@@ -2,9 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 const DoctorCard = ({ doctor }) => {
   const navigate = useNavigate();
-  const imageUrl = doctor.profile_pic?.startsWith("http")
-    ? doctor.profile_pic
-    : `http://localhost:5000/${doctor.profile_pic}`;
+  const imageUrl = doctor.profile_pic;
 
   return (
     <div
