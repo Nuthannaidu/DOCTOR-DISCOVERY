@@ -15,14 +15,21 @@ const DoctorDetail = () => {
   if (loading) return <div className="p-10 text-center">Loading...</div>;
   if (error) return <div className="p-10 text-center text-red-500">Error: {error}</div>;
   if (!selectedDoctor) return null;
+  let imageUrl = "";
+  if (selectedDoctor.profile_pic && selectedDoctor.profile_pic.startsWith("http")) {
+    imageUrl = selectedDoctor.profile_pic;
+  } else {
+    const cleanName = selectedDoctor.name ? selectedDoctor.name.replace(/Dr\.?\s+/i, "") : "Doctor";
+    imageUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(cleanName)}&background=2563EB&color=fff&size=500&font-size=0.4`;
+  }
 
   return (
     <div className="max-w-4xl mx-auto my-10 p-8 bg-white border border-gray-200 rounded-xl shadow-sm">
       <div className="flex flex-col md:flex-row gap-8">
         <img
-          src={selectedDoctor.profile_pic}
+          src={imageUrl}
           alt={selectedDoctor.name}
-          className="w-full md:w-64 h-64 object-cover rounded-lg shadow-inner"
+          className="w-full md:w-64 h-64 object-cover rounded-lg shadow-inner bg-gray-50"
         />
 
         <div className="flex-1">

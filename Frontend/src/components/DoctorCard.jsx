@@ -2,7 +2,16 @@ import { useNavigate } from "react-router-dom";
 
 const DoctorCard = ({ doctor }) => {
   const navigate = useNavigate();
-  const imageUrl = doctor.profile_pic;
+
+  let imageUrl = "";
+
+  if (doctor.profile_pic && doctor.profile_pic.startsWith("http")) {
+    imageUrl = doctor.profile_pic;
+  } 
+  else {
+    const cleanName = doctor.name ? doctor.name.replace(/Dr\.?\s+/i, "") : "Doctor";
+    imageUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(cleanName)}&background=2563EB&color=fff&size=250&font-size=0.4`;
+  }
 
   return (
     <div
