@@ -9,11 +9,11 @@ import { useNavigate } from "react-router-dom";
 const Home = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { topDoctors, loading, error } = useSelector((state) => state.doctors);
+  const {topDoctors,loading,error }=useSelector((state)=>state.doctors);
 
   useEffect(() => {
     dispatch(fetchTopDoctors());
-  }, [dispatch]);
+  },[dispatch]);
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 space-y-10">
@@ -61,7 +61,7 @@ const Home = () => {
           <p className="text-gray-600 mt-1">Join our network</p>
         </div>
         <button 
-          onClick={() => navigate("/register")}
+          onClick={()=>navigate("/register")}
           className="bg-blue-600 text-white px-8 py-3 rounded-md hover:bg-blue-700 font-medium transition-colors shadow-sm"
         >
           Register Here

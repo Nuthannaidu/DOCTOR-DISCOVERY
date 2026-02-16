@@ -32,14 +32,14 @@ const SearchFilter = () => {
       <select value={city} onChange={(e) => setCity(e.target.value)} className="border border-gray-300 rounded-md px-4 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
         <option value="">All Cities</option>
         {cities.map((c, i) => <option key={i} value={c}>{c}</option>)}
-      </select>
+</select>
 
       <select value={speciality} onChange={(e) => setSpeciality(e.target.value)} className="border border-gray-300 rounded-md px-4 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
         <option value="">All Specialities</option>
         {specialities.map((s, i) => <option key={i} value={s}>{s}</option>)}
       </select>
 
-      <button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors font-medium">
+<button type="submit" className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors font-medium">
         Search
       </button>
     </form>
