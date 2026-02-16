@@ -31,19 +31,26 @@ const DoctorListing = () => {
     loadData();
   }, [page]);
 
-  useEffect(() => {
+useEffect(() => {
+    let scrollTimeout;
     const handleScroll = () => {
-      if (
-        hasMore && !loading &&
-        window.innerHeight + document.documentElement.scrollTop >=
-        document.documentElement.offsetHeight - 100
-      ) {
-        setPage((prev) => prev + 1);
-      }
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        console.log("abc");
+        if (
+          hasMore && !loading &&
+          window.innerHeight + document.documentElement.scrollTop >=
+          document.documentElement.offsetHeight - 100
+        ) {
+          setPage((prev) => prev + 1);
+        }
+      }, 150);
     };
-
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      clearTimeout(scrollTimeout);
+    };
   }, [hasMore, loading]);
 
   return (

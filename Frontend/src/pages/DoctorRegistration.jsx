@@ -19,6 +19,11 @@ const DoctorRegistration = () => {
       alert("Please fill in all required fields before proceeding.");
       return; 
     }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert("Please enter a valid email address.");
+      return;
+    }
     setStep(2);
   };
 
