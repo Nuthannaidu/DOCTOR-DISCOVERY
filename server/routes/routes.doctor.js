@@ -6,7 +6,7 @@ const doctorController=require("../controllers/doctorController");
 router.get("/",doctorController.getAlldoctors);
 router.get("/top",doctorController.getTopdoctors);
 router.get("/:id",doctorController.getdoctorbyId);
-router.post("/", upload.single("profile_pic"), doctorController.registerDoctor);
+router.post("/",upload.single("profile_pic"),doctorController.registerDoctor);
 
 
 module.exports=router;

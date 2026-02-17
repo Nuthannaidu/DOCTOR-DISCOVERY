@@ -19,7 +19,7 @@ CREATE TABLE doctors(
   'Jaipur',
   'Chandigarh'
  ) NOT NULL,
-    profile_pic VARCHAR(200) DEFAULT NULL,
+    profile_pic VARCHAR(200) DEFAULT NULL
     
     institute_name VARCHAR(150) NOT NULL,
     degree_name VARCHAR(150) NOT NULL,

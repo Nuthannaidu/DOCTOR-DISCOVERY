@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { fetchDoctors, clearDoctors } from "../store/doctorSlice";
@@ -30,17 +30,17 @@ const DoctorListing = () => {
     };
     loadData();
   }, [page]);
-
-useEffect(() => {
+  
+  useEffect(() => {
     let scrollTimeout;
     const handleScroll = () => {
       clearTimeout(scrollTimeout);
       scrollTimeout = setTimeout(() => {
-        console.log("abc");
         if (
-          hasMore && !loading &&
+          hasMore &&
+          !loading &&
           window.innerHeight + document.documentElement.scrollTop >=
-          document.documentElement.offsetHeight - 100
+            document.documentElement.offsetHeight - 100
         ) {
           setPage((prev) => prev + 1);
         }
@@ -55,31 +55,18 @@ useEffect(() => {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">
-        {params.speciality ? `${params.speciality}s` : "All Doctors"}
+      <h2 className="text-2xl mb-6">
+        {params.speciality ? `${params.speciality}` : "All Doctors"}
       </h2>
-
-      <div className="flex flex-wrap gap-6 justify-center md:justify-start">
-        {doctorList.map((doctor, index) => (
-          <DoctorCard key={`${doctor.id}-${index}`} doctor={doctor} />
+      <div className="flex flex-wrap gap-6">
+        {doctorList.map((doctor) => (
+          <DoctorCard key={doctor.id} doctor={doctor} />
         ))}
       </div>
-
-      <div className="mt-10 text-center py-4">
-        {loading && <p className="text-blue-600 animate-pulse font-medium">Loading doctors...</p>}
+      <div className="mt-8 text-center">
+        {loading && <p>Loading doctors..</p>}
         {!hasMore && doctorList.length > 0 && (
-          <p className="text-gray-400 italic">No more doctors found.</p>
-        )}
-        {!loading && doctorList.length === 0 && (
-          <div className="bg-gray-50 p-10 rounded-lg border border-dashed border-gray-300">
-            <p className="text-gray-500">No doctors match your current filters.</p>
-            <button 
-              onClick={() => window.location.href='/doctors'}
-              className="mt-4 text-blue-600 underline"
-            >
-              Clear all filters
-            </button>
-          </div>
+          <p>No more doctors found.</p>
         )}
       </div>
     </div>
